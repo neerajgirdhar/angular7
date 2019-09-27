@@ -1,0 +1,25 @@
+export class CRR
+{
+empID:number
+empName:string
+unit:string
+jobLevel:number
+countClientAppreciation:number
+descriptionClientAppreciation:string
+countTrainingCertification:number
+descriptionTrainingCertification:string
+countInterviewDrives:number
+descriptionInterviewDrives:string
+countPOC:number
+descriptionPOC:string
+countRFP:number
+descriptionRFP:string
+countSessionTaken:number
+descriptionSessionTaken:string
+countBlogs:number
+descriptionBlogs:string
+countDealsWon:number
+descriptionDealsWon:string
+dealsWonWorthInMillion:number
+escalation:string
+}

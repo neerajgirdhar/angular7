@@ -1,0 +1,605 @@
+<!--<div class="h-10 d-inline-block">
+
+
+      <img src="assets/img/blog-08-min.png" class="img-responsive">
+
+</div>
+<nav class="navbar navbar-default">
+     <div *ngIf="notLoggedIn" class="row">
+      <span class="label label-success">
+      Please Login To Self Review your CRR</span><br>
+      </div>
+
+</nav>
+-->
+ <div *ngIf="notLoggedIn" class="row">
+      <span class="label label-success">
+      Please Login To Self Review your CRR</span><br>
+</div>
+<div *ngIf="notLoggedIn" class="bg bg-success">
+  <div class="row"><span class="label label-danger">
+      <strong>Logged In :</strong>False</span>
+  </div>
+
+  <form #myform="ngForm" (ngSubmit)="login(myform)" class="form" ngNativeValidate>
+  <table  align="center">
+    <tr>
+      <td style="width:490px;">
+        <div  class="form-group">
+          <label for="userName">User Name:</label>
+          <input   type="text"
+                   ngModel name="userName" id="userName"
+                   class="form-control" required>
+        </div>
+
+        <div class ="form-group">
+          <label for="role">Role :</label>
+          <input  type="text"  ngModel name="role"  class="form-control" id="role" required>
+        </div>
+
+        <div  class="form-group">
+          <label for="userId">Employee ID :</label>
+          <input  type="text" ngModel name="userId"  required class="form-control" id="userId">
+        </div>
+        <div class="table-responsive">
+          <table class="table">
+            <button type="submit" class="btn btn-primary">Login</button>
+          </table>
+        </div>
+      </td>
+
+    </tr>
+
+  </table>
+
+
+</form>
+</div>
+
+
+<div *ngIf="loggedIn" class="bg bg-success"  >
+    <!--<div class="row">
+      <strong>Token received : </strong><span class="label label-success">{{loginResponse1.jwttoken}}</span>
+    </div>-->
+  <div class="row">
+     <span class="label label-success">
+
+      Fill the Details below to Self Review your CRR</span><br>
+  </div>
+    <div class="row"><span class="label label-success">
+      <strong>Logged In :</strong>{{loginResponse1.loggedIn}}</span>
+
+    </div>
+<br>
+  <br>
+
+  <form #myform1="ngForm" (ngSubmit)="calculateCRR(myform1)" ngNativeValidate class="form" >
+
+
+    <table  align="center">
+      <tr>
+        <td style="width:490px;">
+
+    <div  class="form-group">
+
+
+      <label for="joblevel">Job Level :</label>
+      <select class="form-control" id="joblevel" [(ngModel)]="selectedValue" ngModel name="joblevel" required >
+        <option [ngValue]= "4" Selected>Level 4</option>
+        <option [ngValue]= "5">Level 5</option>
+        <option [ngValue]= "6">Level 6</option>
+        <option [ngValue]= "7">Level 7</option>
+      </select>
+    </div>
+
+    <div  class="form-group">
+      <label for="empId">Employee ID :</label>
+      <input  type="text" ngModel name="empId"  class="form-control" id="empId" required>
+    </div>
+
+    <div  class="form-group">
+      <label for="empName">Employee Name :</label>
+      <input  type="text" ngModel name="empName"  class="form-control" id="empName" required>
+    </div>
+
+    <div  class="form-group">
+      <label for="unit">Unit(like FS-ADM/FS-STAR) :</label>
+      <input  type="text" ngModel name="unit"  class="form-control" id="unit" required>
+    </div>
+
+    <div  class="form-group">
+      <label for="escalation">Any Escalation?</label>
+      <select class="form-control" id="escalation" ngModel name="escalation" required>
+        <option [ngValue]= "false">No</option>
+        <option [ngValue]= "true">Yes</option>
+
+      </select>
+    </div>
+
+
+
+    <div  *ngIf="selectedValue == '4'">
+      <div  class="form-group">
+      <label for="countTrainingCertificationL4">No of Certification & Training</label>
+      <select class="form-control" id="countTrainingCertificationL4"  ngModel name="countTrainingCertificationL4" required>
+        <option [ngValue]= "0" >0</option>
+        <option [ngValue]= "1" >1</option>
+        <option [ngValue]= "2">2</option>
+        <option [ngValue]= "3">3</option>
+        <option [ngValue]= "4">4</option>
+        <option [ngValue]= "5">5</option>
+        <option [ngValue]= "6">7</option>
+        <option [ngValue]= "7">7</option>
+        <option [ngValue]= "8">8</option>
+
+
+      </select>
+      </div>
+
+      <div  class="form-group">
+        <label for="descriptionTrainingCertificationL4">Training & Certification Details</label>
+        <textarea class="form-control" ngModel name="descriptionTrainingCertificationL4" id="descriptionTrainingCertificationL4" required></textarea>
+      </div>
+
+      <div  class="form-group">
+        <label for="countClientAppreciationL4">Client Appreciations</label>
+        <select class="form-control" id="countClientAppreciationL4" ngModel name="countClientAppreciationL4" required>
+          <option [ngValue]= "0">0</option>
+          <option [ngValue]= "1">1</option>
+          <option [ngValue]= "2">2</option>
+          <option [ngValue]= "3">3</option>
+          <option [ngValue]= "4">4</option>
+          <option [ngValue]= "5">5</option>
+          <option [ngValue]= "6">7</option>
+          <option [ngValue]= "7">7</option>
+          <option [ngValue]= "8">8</option>
+        </select>
+      </div>
+
+      <div  class="form-group">
+        <label for="descriptionClientAppreciationL4">Client Appreciations</label>
+        <textarea class="form-control" ngModel name="descriptionClientAppreciationL4" id="descriptionClientAppreciationL4" required></textarea>
+      </div>
+    </div>
+
+    <div *ngIf="selectedValue == '5'">
+
+      <div  class="form-group">
+        <label for="countTrainingCertificationL5">No of Certification & Training</label>
+        <select required class="form-control" id="countTrainingCertificationL5"  ngModel name="countTrainingCertificationL5" required>
+          <option [ngValue]= "0" >0</option>
+          <option [ngValue]= "1" >1</option>
+          <option [ngValue]= "2">2</option>
+          <option [ngValue]= "3">3</option>
+          <option [ngValue]= "4">4</option>
+          <option [ngValue]= "5">5</option>
+          <option [ngValue]= "6">7</option>
+          <option [ngValue]= "7">7</option>
+          <option [ngValue]= "8">8</option>
+
+
+        </select>
+      </div>
+
+      <div  class="form-group">
+        <label for="descriptionTrainingCertificationL5">Training & Certification Details</label>
+        <textarea required class="form-control" ngModel name="descriptionTrainingCertificationL5" id="descriptionTrainingCertificationL5"></textarea>
+      </div>
+
+      <div  class="form-group">
+        <label for="countClientAppreciationL5">Client Appreciations</label>
+        <select required class="form-control" id="countClientAppreciationL5" ngModel name="countClientAppreciationL5" required>
+          <option [ngValue]= "0">0</option>
+          <option [ngValue]= "1">1</option>
+          <option [ngValue]= "2">2</option>
+          <option [ngValue]= "3">3</option>
+          <option [ngValue]= "4">4</option>
+          <option [ngValue]= "5">5</option>
+          <option [ngValue]= "6">7</option>
+          <option [ngValue]= "7">7</option>
+          <option [ngValue]= "8">8</option>
+        </select>
+      </div>
+
+      <div  class="form-group">
+        <label for="descriptionClientAppreciationL5">Client Appreciations</label>
+        <textarea required class="form-control" ngModel name="descriptionClientAppreciationL5" id="descriptionClientAppreciationL5"></textarea>
+      </div>
+
+      <div  class="form-group">
+        <label for="countPocL5">POC's</label>
+        <select required  class="form-control" id="countPocL5" ngModel name="countPocL5" required>
+          <option [ngValue]= "0">0</option>
+          <option [ngValue]= "1">1</option>
+          <option [ngValue]= "2">2</option>
+          <option [ngValue]= "3">3</option>
+          <option [ngValue]= "4">4</option>
+          <option [ngValue]= "5">5</option>
+          <option [ngValue]= "6">7</option>
+          <option [ngValue]= "7">7</option>
+          <option [ngValue]= "8">8</option>
+        </select>
+      </div>
+
+      <div  class="form-group">
+        <label required for="descriptionPocL5">Description of POC's</label>
+        <textarea class="form-control" ngModel name="descriptionPocL5" id="descriptionPocL5"></textarea>
+      </div>
+
+      <div  class="form-group">
+        <label for="countInterviewDrivesL5">Interview/Recruitment  Drives</label>
+        <select required class="form-control" id="countInterviewDrivesL5" ngModel name="countInterviewDrivesL5" required>
+          <option [ngValue]= "0">0</option>
+          <option [ngValue]= "1">1</option>
+          <option [ngValue]= "2">2</option>
+          <option [ngValue]= "3">3</option>
+          <option [ngValue]= "4">4</option>
+          <option [ngValue]= "5">5</option>
+          <option [ngValue]= "6">7</option>
+          <option [ngValue]= "7">7</option>
+          <option [ngValue]= "8">8</option>
+        </select>
+      </div>
+
+      <div  class="form-group">
+        <label for="descriptionInterviewDrivesL5">Description Interview/Recruitment  Drives</label>
+        <textarea required class="form-control" ngModel name="descriptionInterviewDrivesL5" id="descriptionInterviewDrivesL5"></textarea>
+      </div>
+    </div>
+
+
+    <div *ngIf="selectedValue == '6'">
+
+      <div  class="form-group">
+        <label for="countTrainingCertificationL6">No of Certification & Training</label>
+        <select required class="form-control" id="countTrainingCertificationL6"  ngModel name="countTrainingCertificationL6" required>
+          <option [ngValue]= "0" >0</option>
+          <option [ngValue]= "1" >1</option>
+          <option [ngValue]= "2">2</option>
+          <option [ngValue]= "3">3</option>
+          <option [ngValue]= "4">4</option>
+          <option [ngValue]= "5">5</option>
+          <option [ngValue]= "6">7</option>
+          <option [ngValue]= "7">7</option>
+          <option [ngValue]= "8">8</option>
+
+
+        </select>
+      </div>
+
+      <div  class="form-group">
+        <label for="descriptionTrainingCertificationL6">Training & Certification Details</label>
+        <textarea  required class="form-control" ngModel name="descriptionTrainingCertificationL6" id="descriptionTrainingCertificationL6"></textarea>
+      </div>
+
+      <div  class="form-group">
+        <label for="countClientAppreciationL6">Client Appreciations</label>
+        <select required class="form-control" id="countClientAppreciationL6" ngModel name="countClientAppreciationL6" required>
+          <option [ngValue]= "0">0</option>
+          <option [ngValue]= "1">1</option>
+          <option [ngValue]= "2">2</option>
+          <option [ngValue]= "3">3</option>
+          <option [ngValue]= "4">4</option>
+          <option [ngValue]= "5">5</option>
+          <option [ngValue]= "6">7</option>
+          <option [ngValue]= "7">7</option>
+          <option [ngValue]= "8">8</option>
+        </select>
+      </div>
+
+      <div  class="form-group">
+        <label for="descriptionClientAppreciationL6">Client Appreciations</label>
+        <textarea required class="form-control" ngModel name="descriptionClientAppreciationL6" id="descriptionClientAppreciationL6"></textarea>
+      </div>
+
+      <div  class="form-group">
+        <label for="countPocL6">POC's</label>
+        <select required class="form-control" id="countPocL6" ngModel name="countPocL6" required>
+          <option [ngValue]= "0">0</option>
+          <option [ngValue]= "1">1</option>
+          <option [ngValue]= "2">2</option>
+          <option [ngValue]= "3">3</option>
+          <option [ngValue]= "4">4</option>
+          <option [ngValue]= "5">5</option>
+          <option [ngValue]= "6">7</option>
+          <option [ngValue]= "7">7</option>
+          <option [ngValue]= "8">8</option>
+        </select>
+      </div>
+
+      <div  class="form-group">
+        <label for="descriptionPocL6">Description of POC's</label>
+        <textarea  required class="form-control" ngModel name="descriptionPocL6" id="descriptionPocL6"></textarea>
+      </div>
+
+      <div  class="form-group">
+        <label for="countInterviewDrivesL6">Interview/Recruitment  Drives</label>
+        <select required class="form-control" id="countInterviewDrivesL6" ngModel name="countInterviewDrivesL6" required>
+          <option [ngValue]= "0">0</option>
+          <option [ngValue]= "1">1</option>
+          <option [ngValue]= "2">2</option>
+          <option [ngValue]= "3">3</option>
+          <option [ngValue]= "4">4</option>
+          <option [ngValue]= "5">5</option>
+          <option [ngValue]= "6">7</option>
+          <option [ngValue]= "7">7</option>
+          <option [ngValue]= "8">8</option>
+        </select>
+      </div>
+
+      <div  class="form-group">
+        <label for="descriptionInterviewDrivesL6">Description Interview/Recruitment  Drives</label>
+        <textarea required class="form-control" ngModel name="descriptionInterviewDrivesL6" id="descriptionInterviewDrivesL6"></textarea>
+      </div>
+
+
+
+    <div  class="form-group">
+      <label for="countRFPL6">RFP's/COE's</label>
+      <select required class="form-control" id="countRFPL6" ngModel name="countRFPL6" required>
+        <option [ngValue]= "0">0</option>
+        <option [ngValue]= "1">1</option>
+        <option [ngValue]= "2">2</option>
+        <option [ngValue]= "3">3</option>
+        <option [ngValue]= "4">4</option>
+        <option [ngValue]= "5">5</option>
+        <option [ngValue]= "6">7</option>
+        <option [ngValue]= "7">7</option>
+        <option [ngValue]= "8">8</option>
+      </select>
+    </div>
+
+    <div  class="form-group">
+      <label for="descriptionRFPL6">Details of RFP's/COE's</label>
+      <textarea required class="form-control" ngModel name="descriptionRFPL6" id="descriptionRFPL6"></textarea>
+    </div>
+
+
+
+<div  class="form-group">
+  <label for="countSessionTakenL6">Technical Session Taken</label>
+  <select required class="form-control" id="countSessionTakenL6" ngModel name="countSessionTakenL6" required>
+    <option [ngValue]= "0">0</option>
+    <option [ngValue]= "1">1</option>
+    <option [ngValue]= "2">2</option>
+    <option [ngValue]= "3">3</option>
+    <option [ngValue]= "4">4</option>
+    <option [ngValue]= "5">5</option>
+    <option [ngValue]= "6">7</option>
+    <option [ngValue]= "7">7</option>
+    <option [ngValue]= "8">8</option>
+  </select>
+</div>
+
+<div  class="form-group">
+  <label for="descriptionSessionTakenL6">Description Technical Session Taken</label>
+  <textarea required class="form-control" ngModel name="descriptionSessionTakenL6" id="descriptionSessionTakenL6"></textarea>
+</div>
+
+
+<div  class="form-group">
+  <label for="countBlogsL6">Blogs</label>
+  <select required class="form-control" id="countBlogsL6" ngModel name="countBlogsL6" required>
+    <option [ngValue]= "0">0</option>
+    <option [ngValue]= "1">1</option>
+    <option [ngValue]= "2">2</option>
+    <option [ngValue]= "3">3</option>
+    <option [ngValue]= "4">4</option>
+    <option [ngValue]= "5">5</option>
+    <option [ngValue]= "6">7</option>
+    <option [ngValue]= "7">7</option>
+    <option [ngValue]= "8">8</option>
+  </select>
+</div>
+
+<div  class="form-group">
+  <label for="descriptionBlogsL6">Details of  Blogs</label>
+  <textarea required class="form-control" ngModel name="descriptionBlogsL6" id="descriptionBlogsL6"></textarea>
+</div>
+
+</div>
+    <div *ngIf="selectedValue == '7'">
+
+      <div  class="form-group">
+        <label for="countTrainingCertificationL7">No of Certification & Training</label>
+        <select required class="form-control" id="countTrainingCertificationL7"  ngModel name="countTrainingCertificationL7" required>
+          <option [ngValue]= "0" >0</option>
+          <option [ngValue]= "1" >1</option>
+          <option [ngValue]= "2">2</option>
+          <option [ngValue]= "3">3</option>
+          <option [ngValue]= "4">4</option>
+          <option [ngValue]= "5">5</option>
+          <option [ngValue]= "6">7</option>
+          <option [ngValue]= "7">7</option>
+          <option [ngValue]= "8">8</option>
+
+
+        </select>
+      </div>
+
+      <div  class="form-group">
+        <label for="descriptionTrainingCertificationL7">Training & Certification Details</label>
+        <textarea required class="form-control" ngModel name="descriptionTrainingCertificationL7" id="descriptionTrainingCertificationL7"></textarea>
+      </div>
+
+      <div  class="form-group">
+        <label for="countClientAppreciationL7">Client Appreciations</label>
+        <select required class="form-control" id="countClientAppreciationL7" ngModel name="countClientAppreciationL7" required>
+          <option [ngValue]= "0">0</option>
+          <option [ngValue]= "1">1</option>
+          <option [ngValue]= "2">2</option>
+          <option [ngValue]= "3">3</option>
+          <option [ngValue]= "4">4</option>
+          <option [ngValue]= "5">5</option>
+          <option [ngValue]= "6">7</option>
+          <option [ngValue]= "7">7</option>
+          <option [ngValue]= "8">8</option>
+        </select>
+      </div>
+
+      <div  class="form-group">
+        <label for="descriptionClientAppreciationL7">Client Appreciations</label>
+        <textarea required class="form-control" ngModel name="descriptionClientAppreciationL7" id="descriptionClientAppreciationL7"></textarea>
+      </div>
+
+      <div  class="form-group">
+        <label for="countPocL7">POC's</label>
+        <select required class="form-control" id="countPocL7" ngModel name="countPocL7" required>
+          <option [ngValue]= "0">0</option>
+          <option [ngValue]= "1">1</option>
+          <option [ngValue]= "2">2</option>
+          <option [ngValue]= "3">3</option>
+          <option [ngValue]= "4">4</option>
+          <option [ngValue]= "5">5</option>
+          <option [ngValue]= "6">7</option>
+          <option [ngValue]= "7">7</option>
+          <option [ngValue]= "8">8</option>
+        </select>
+      </div>
+
+      <div  class="form-group">
+        <label for="descriptionPocL7">Description of POC's</label>
+        <textarea required class="form-control" ngModel name="descriptionPocL7" id="descriptionPocL7"></textarea>
+      </div>
+
+      <div  class="form-group">
+        <label for="countInterviewDrivesL7">Interview/Recruitment  Drives</label>
+        <select required class="form-control" id="countInterviewDrivesL7" ngModel name="countInterviewDrivesL7" required>
+          <option [ngValue]= "0">0</option>
+          <option [ngValue]= "1">1</option>
+          <option [ngValue]= "2">2</option>
+          <option [ngValue]= "3">3</option>
+          <option [ngValue]= "4">4</option>
+          <option [ngValue]= "5">5</option>
+          <option [ngValue]= "6">7</option>
+          <option [ngValue]= "7">7</option>
+          <option [ngValue]= "8">8</option>
+        </select>
+      </div>
+
+      <div  class="form-group">
+        <label for="descriptionInterviewDrivesL7">Description Interview/Recruitment  Drives</label>
+        <textarea required class="form-control" ngModel name="descriptionInterviewDrivesL7" id="descriptionInterviewDrivesL7"></textarea>
+      </div>
+
+
+
+      <div  class="form-group">
+        <label for="countRFPL7">RFP's/COE's</label>
+        <select required class="form-control" id="countRFPL7" ngModel name="countRFPL7" required>
+          <option [ngValue]= "0">0</option>
+          <option [ngValue]= "1">1</option>
+          <option [ngValue]= "2">2</option>
+          <option [ngValue]= "3">3</option>
+          <option [ngValue]= "4">4</option>
+          <option [ngValue]= "5">5</option>
+          <option [ngValue]= "6">7</option>
+          <option [ngValue]= "7">7</option>
+          <option [ngValue]= "8">8</option>
+        </select>
+      </div>
+
+      <div  class="form-group">
+        <label for="descriptionRFPL7">Details of RFP's/COE's</label>
+        <textarea required class="form-control" ngModel name="descriptionRFPL7" id="descriptionRFPL7"></textarea>
+      </div>
+
+
+
+      <div  class="form-group">
+        <label for="countSessionTakenL7">Technical Session Taken</label>
+        <select required class="form-control" id="countSessionTakenL7" ngModel name="countSessionTakenL7" required>
+          <option [ngValue]= "0">0</option>
+          <option [ngValue]= "1">1</option>
+          <option [ngValue]= "2">2</option>
+          <option [ngValue]= "3">3</option>
+          <option [ngValue]= "4">4</option>
+          <option [ngValue]= "5">5</option>
+          <option [ngValue]= "6">7</option>
+          <option [ngValue]= "7">7</option>
+          <option [ngValue]= "8">8</option>
+        </select>
+      </div>
+
+      <div  class="form-group">
+        <label for="descriptionSessionTakenL7">Description Technical Session Taken</label>
+        <textarea required class="form-control" ngModel name="descriptionSessionTakenL7" id="descriptionSessionTakenL7"></textarea>
+      </div>
+
+
+      <div  class="form-group">
+        <label for="countBlogsL7">Blogs</label>
+        <select required class="form-control" id="countBlogsL7" ngModel name="countBlogsL7" required>
+          <option [ngValue]= "0">0</option>
+          <option [ngValue]= "1">1</option>
+          <option [ngValue]= "2">2</option>
+          <option [ngValue]= "3">3</option>
+          <option [ngValue]= "4">4</option>
+          <option [ngValue]= "5">5</option>
+          <option [ngValue]= "6">7</option>
+          <option [ngValue]= "7">7</option>
+          <option [ngValue]= "8">8</option>
+        </select>
+      </div>
+
+      <div  class="form-group">
+        <label for="descriptionBlogsL7">Details of  Blogs</label>
+        <textarea required class="form-control" ngModel name="descriptionBlogsL7" id="descriptionBlogsL7"></textarea>
+      </div>
+
+      <div  class="form-group">
+        <label for="countDealsWonL7">New Deals Won</label>
+        <select required class="form-control" id="countDealsWonL7" ngModel name="countDealsWonL7" required>
+          <option [ngValue]= "0">0</option>
+          <option [ngValue]= "1">1</option>
+          <option [ngValue]= "2">2</option>
+          <option [ngValue]= "3">3</option>
+          <option [ngValue]= "4">4</option>
+          <option [ngValue]= "5">5</option>
+          <option [ngValue]= "6">7</option>
+          <option [ngValue]= "7">7</option>
+          <option [ngValue]= "8">8</option>
+        </select>
+      </div>
+
+      <div  class="form-group">
+        <label for="descriptionDealsWonL7">Details New Deals Won</label>
+        <textarea required class="form-control" ngModel name="descriptionDealsWonL7" id="descriptionDealsWonL7"></textarea>
+      </div>
+
+
+      <div  class="form-group">
+        <label for="dealsWonWorthInMillionL7">Deals Worth in Millions</label>
+        <select required class="form-control" id="dealsWonWorthInMillionL7" ngModel name="dealsWonWorthInMillionL7" required>
+          <option [ngValue]= "1">Less than 5 Million</option>
+          <option [ngValue]= "2">Greater than 5 milllion Less than 12 millionm</option>
+          <option [ngValue]= "3">Greater than 12 milllion </option>
+
+        </select>
+      </div>
+
+    </div>
+
+    <div class="table-responsive">
+      <table class="table">
+        <button type="submit" class="btn btn-primary">Check CRR</button>
+      </table>
+    </div>
+        </td>
+
+      </tr>
+
+    </table>
+  </form>
+</div>
+<div *ngIf="crrIssued">
+  <span class="label label-success"> {{rating.rating}}</span>
+</div>
+
+
+
+
+
+
+
+
